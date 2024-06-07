@@ -1,4 +1,4 @@
-# Abc.IdentityServer4.JwtIntrospection
+# Abc.IdentityServer.JwtIntrospection
 **Sample** for implementing [JWT Response for OAuth Token Introspection](https://tools.ietf.org/html/draft-ietf-oauth-jwt-introspection-response-12) support for IdentityServer4 and Duende IdentityServer with .NET core.
 
 ### Configuring IdentityServer

@@ -153,6 +153,5 @@ namespace Abc.IdentityServer.ResponseHandling.UnitTests
 
             result.Should().BeEquivalentTo(expected);
         }
-
     }
 }
