@@ -72,7 +72,7 @@ namespace Abc.IdentityServer.Services.UnitTests
         }
 
         [Fact()]
-        public async Task token_with_claims()
+        public async Task token_with_claims_use_lifetime_ignore_claims()
         {
             // Arrange
             var currentTime = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -104,7 +104,6 @@ namespace Abc.IdentityServer.Services.UnitTests
 
             jwt.Claims.Should().HaveCount(3);
         }
-
 
         [Fact()]
         public async Task token_with_issuer()
@@ -170,7 +169,7 @@ namespace Abc.IdentityServer.Services.UnitTests
         }
 
         [Fact()]
-        public async Task introspection_token_v7_with_claims()
+        public async Task introspection_token_v7_with_claims_ignore_lifetime()
         {
             // Arrange
             var currentTime = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -179,7 +178,7 @@ namespace Abc.IdentityServer.Services.UnitTests
             var token = new Token()
             {
                 Type = "introspection_token_v7",
-                Lifetime = 60 * 60 * 2, // 2h
+                Lifetime = 1, // 1s
                 Claims = new List<Claim>()
                 {
                     new Claim(JwtClaimTypes.NotBefore, currentTime.AddMinutes(-1).ToEpochTime().ToString(), ClaimValueTypes.Integer),
@@ -260,7 +259,7 @@ namespace Abc.IdentityServer.Services.UnitTests
         }
 
         [Fact()]
-        public async Task introspection_token_with_claims()
+        public async Task introspection_token_with_claims_ignore_lifetime()
         {
             // Arrange
             var currentTime = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -269,7 +268,7 @@ namespace Abc.IdentityServer.Services.UnitTests
             var token = new Token()
             {
                 Type = "introspection_token",
-                Lifetime = 60 * 60 * 2, // 2h
+                Lifetime = 1, // 1s
                 Claims = new List<Claim>()
                 {
                     new Claim(JwtClaimTypes.NotBefore, currentTime.AddMinutes(-1).ToEpochTime().ToString(), ClaimValueTypes.Integer),

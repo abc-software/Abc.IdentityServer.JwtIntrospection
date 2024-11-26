@@ -155,7 +155,7 @@ namespace Abc.IdentityServer.Services
                 token.Claims.Remove(expiresClaim);
             }
 
-            var payload = await base.CreatePayloadAsync(token);
+            var payload = token.CreateJwtPayload(Clock, Options, Logger);
 
             // IdentityServer4 does not set 'iat' claim
             payload[JwtClaimTypes.IssuedAt] = EpochTime.GetIntDate(Clock.UtcNow.UtcDateTime);

@@ -22,6 +22,8 @@ namespace Abc.IdentityServer.ResponseHandling
     /// <seealso cref="Ids.ResponseHandling.IIntrospectionResponseGenerator" />
     public class JwtIntrospectionResponseGenerator : IntrospectionResponseGenerator
     {
+        private const int DefaultIntrospectionTokenLifetime = 60 * 60 * 2; // 2h
+
         private readonly ITokenCreationService _tokenCreation;
 #if DUENDE
         private readonly IIssuerNameService _issuerNameService;
@@ -105,6 +107,15 @@ namespace Abc.IdentityServer.ResponseHandling
                     AccessTokenType = AccessTokenType.Jwt,
                     Claims = claims,
                 };
+
+                // Identityserver4 IDX12401 error thrown if Lifetime equals 0
+                // Lifetime value does not matter if `nbf` and `exp` claims presents, see AbcTokenCreationService
+                // Set default value in case when claims absent
+#if DUENDE && NET8_0_OR_GREATER
+                token.Lifetime = validationResult.Client?.AccessTokenLifetime ?? DefaultIntrospectionTokenLifetime;
+#else
+                token.Lifetime = DefaultIntrospectionTokenLifetime;
+#endif
 
                 var introspectionToken = await _tokenCreation.CreateTokenAsync(token);
 
