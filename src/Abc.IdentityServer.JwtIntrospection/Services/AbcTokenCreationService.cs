@@ -141,9 +141,11 @@ namespace Abc.IdentityServer.Services
         /// <inheritdoc/>
         protected override async Task<JwtPayload> CreatePayloadAsync(Token token)
         {
-            // remove 'nbf' and 'exp' claims
+            // remove 'nbf', 'exp' and 'iss' claims
+            // values ​​are obtained from the `token` argument
             var notBeforeClaim = token.Claims.FirstOrDefault(x => x.Type == JwtClaimTypes.NotBefore);
             var expiresClaim = token.Claims.FirstOrDefault(x => x.Type == JwtClaimTypes.Expiration);
+            var issuerClaim = token.Claims.FirstOrDefault(x => x.Type == JwtClaimTypes.Issuer);
 
             if (notBeforeClaim != null)
             {
@@ -153,6 +155,11 @@ namespace Abc.IdentityServer.Services
             if (expiresClaim != null)
             {
                 token.Claims.Remove(expiresClaim);
+            }
+
+            if (issuerClaim != null)
+            {
+                token.Claims.Remove(issuerClaim);
             }
 
             var payload = token.CreateJwtPayload(Clock, Options, Logger);

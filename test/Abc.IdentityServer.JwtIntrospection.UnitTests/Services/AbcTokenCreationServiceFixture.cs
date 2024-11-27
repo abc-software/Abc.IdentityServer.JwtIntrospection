@@ -137,6 +137,42 @@ namespace Abc.IdentityServer.Services.UnitTests
         }
 
         [Fact()]
+        public async Task introspection_token_v7_ignore_issuer_claim()
+        {
+            // Arrange
+            var currentTime = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            _stubClock.UtcNowFunc = () => currentTime;
+
+            var token = new Token()
+            {
+                Type = "introspection_token_v7",
+                Issuer = _options.IssuerUri,
+                Lifetime = 60 * 60 * 2, // 2h
+                Claims = new List<Claim>()
+                {
+                    new Claim(JwtClaimTypes.Issuer, "some_issuer"),
+                },
+            };
+
+            // Act
+            var result = await _target.CreateTokenAsync(token);
+            result.Should().NotBeNull();
+            var jwt = new JwtSecurityToken(result);
+
+            // Assert
+            jwt.Header["alg"].Should().Be("RS256");
+            jwt.Header["typ"].Should().Be("token-introspection+jwt");
+
+            jwt.SignatureAlgorithm.Should().Be("RS256");
+            jwt.ValidFrom.Should().Be(currentTime);
+            jwt.ValidTo.Should().Be(currentTime.AddHours(2));
+            jwt.IssuedAt.Should().Be(currentTime);
+            jwt.Issuer.Should().Be("https://test.identityserver.io");
+
+            jwt.Claims.Should().HaveCount(4);
+        }
+
+        [Fact()]
         public async Task introspection_token_v7_with_issuer()
         {
             // Arrange
@@ -300,6 +336,48 @@ namespace Abc.IdentityServer.Services.UnitTests
             ((long)introspection["exp"]).Should().Be(currentTime.AddHours(2).AddMinutes(-1).ToEpochTime());
             ((long)introspection["iat"]).Should().Be(currentTime.ToEpochTime());
             ((bool)introspection["active"]).Should().BeTrue();
+        }
+
+        [Fact()]
+        public async Task introspection_token_ignore_issuer_claim()
+        {
+            // Arrange
+            var currentTime = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            _stubClock.UtcNowFunc = () => currentTime;
+
+            var token = new Token()
+            {
+                Type = "introspection_token",
+                Issuer = _options.IssuerUri,
+                Lifetime = 60 * 60 * 2, // 2h
+                Claims = new List<Claim>()
+                {
+                    new Claim(JwtClaimTypes.Issuer, "some_issuer"),
+                },
+            };
+
+            // Act
+            var result = await _target.CreateTokenAsync(token);
+            result.Should().NotBeNull();
+            var jwt = new JwtSecurityToken(result);
+
+            // Assert
+            jwt.Header["alg"].Should().Be("RS256");
+            jwt.Header["typ"].Should().Be("token-introspection+jwt");
+
+            jwt.SignatureAlgorithm.Should().Be("RS256");
+            jwt.IssuedAt.Should().Be(currentTime);
+            jwt.Issuer.Should().Be("https://test.identityserver.io");
+            jwt.Claims.Should().HaveCount(3);
+
+            var introspection = ToDictionary(jwt.Payload["token_introspection"]);
+            introspection.Should().NotBeNull();
+            introspection.Values.Should().HaveCount(4);
+
+            ((string)introspection["iss"]).Should().Be("https://test.identityserver.io");
+            ((long)introspection["nbf"]).Should().Be(currentTime.ToEpochTime());
+            ((long)introspection["exp"]).Should().Be(currentTime.AddHours(2).ToEpochTime());
+            ((long)introspection["iat"]).Should().Be(currentTime.ToEpochTime());
         }
 
         private static Dictionary<string, object> ToDictionary(object value)
