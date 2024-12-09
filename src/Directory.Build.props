@@ -8,7 +8,7 @@
     <RepositoryUrl>https://github.com/abc-software/Abc.IdentityServer.JwtIntrospection.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     
-    <Version>1.2.5-dev0</Version>
+    <Version>1.2.5-dev1</Version>
     <RootNamespace>Abc.IdentityServer</RootNamespace>
 
     <SignAssembly>true</SignAssembly>
