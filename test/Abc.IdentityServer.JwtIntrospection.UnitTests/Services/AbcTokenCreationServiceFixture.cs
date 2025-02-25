@@ -239,7 +239,7 @@ namespace Abc.IdentityServer.Services.UnitTests
 
             jwt.Claims.Should().HaveCount(4);
 
-#if DUENDE && NET8_0_OR_GREATER
+#if (DUENDE || IDS8) && NET8_0_OR_GREATER
             var claimType = ClaimValueTypes.Integer64;
 #else
             var claimType = ClaimValueTypes.Integer;
@@ -381,7 +381,7 @@ namespace Abc.IdentityServer.Services.UnitTests
 
         private static Dictionary<string, object> ToDictionary(object value)
         {
-#if DUENDE
+#if DUENDE || IDS8
             var str = value.ToString();
             var dict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(str);
             var a = new Dictionary<string, object>();

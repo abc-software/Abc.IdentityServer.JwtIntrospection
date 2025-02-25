@@ -1,5 +1,7 @@
 ﻿#if DUENDE
 namespace Duende.IdentityServer.Services
+#elif IDS8
+namespace IdentityServer8.Services
 #else
 namespace IdentityServer4.Services
 #endif

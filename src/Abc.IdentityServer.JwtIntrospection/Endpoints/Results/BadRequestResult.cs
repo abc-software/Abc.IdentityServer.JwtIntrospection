@@ -28,7 +28,7 @@ namespace Abc.IdentityServer.Endpoints.Results
         {
             context.Response.StatusCode = 400;
             context.Response.SetNoCache();
-            if (!Error.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Error))
             {
                 var dto = new ResultDto
                 {

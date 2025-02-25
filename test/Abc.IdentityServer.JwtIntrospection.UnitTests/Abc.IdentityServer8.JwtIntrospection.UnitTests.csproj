@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <Compile Remove="obj\**" />
     <EmbeddedResource Remove="obj\**" />
@@ -6,15 +6,15 @@
   </ItemGroup>
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <DefineConstants>$(DefineConstants);IDS4</DefineConstants>
+    <DefineConstants>$(DefineConstants);IDS8</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Abc.IdentityServer.JwtIntrospection\Abc.IdentityServer4.JwtIntrospection.csproj" />
+    <ProjectReference Include="..\..\src\Abc.IdentityServer.JwtIntrospection\Abc.IdentityServer8.JwtIntrospection.csproj" />
   </ItemGroup>
 
 </Project>
