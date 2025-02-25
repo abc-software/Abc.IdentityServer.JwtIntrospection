@@ -8,7 +8,6 @@
 // ----------------------------------------------------------------------------
 
 using Abc.IdentityServer.Configuration;
-using IdentityModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;

@@ -7,7 +7,6 @@
 // </copyright>
 // ----------------------------------------------------------------------------
 
-using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
