@@ -1,4 +1,4 @@
-﻿#if NET10_0_OR_GREATER && DUENDE
+﻿#if NET8_0_OR_GREATER && DUENDE
 
 namespace System
 {
