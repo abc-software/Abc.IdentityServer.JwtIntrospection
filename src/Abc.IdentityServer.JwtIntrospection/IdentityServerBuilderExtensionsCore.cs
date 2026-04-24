@@ -11,7 +11,6 @@ using Abc.IdentityServer.Configuration;
 using Abc.IdentityServer.Endpoints;
 using Abc.IdentityServer.ResponseHandling;
 using Abc.IdentityServer.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -33,7 +32,6 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddOptions();
             builder.Services.AddSingleton<AbcIdentityServerOptions>(resolver => resolver.GetRequiredService<IOptions<AbcIdentityServerOptions>>().Value);
-            builder.Services.AddSingleton<IPostConfigureOptions<CookieAuthenticationOptions>, PostConfigureInternalCookieOptions>();
             builder.Services.AddSingleton<IdentityServerOptions>(resolver => resolver.GetRequiredService<AbcIdentityServerOptions>());
 #if DUENDE
             builder.Services.AddTransient(resolver => resolver.GetRequiredService<IOptions<IdentityServerOptions>>().Value.PersistentGrants);
