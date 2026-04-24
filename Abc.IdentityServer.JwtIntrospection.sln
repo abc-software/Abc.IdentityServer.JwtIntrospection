@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33502.453
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11716.220 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abc.IdentityServer4.JwtIntrospection", "src\Abc.IdentityServer.JwtIntrospection\Abc.IdentityServer4.JwtIntrospection.csproj", "{E65814A6-5B39-4D5B-8CAF-0C8BAD13EB16}"
 EndProject
@@ -29,6 +29,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abc.IdentityServer8.JwtIntrospection", "src\Abc.IdentityServer.JwtIntrospection\Abc.IdentityServer8.JwtIntrospection.csproj", "{CE7009F8-EF27-4ACF-AFE4-CF536C3CE94F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abc.IdentityServer8.JwtIntrospection.UnitTests", "test\Abc.IdentityServer.JwtIntrospection.UnitTests\Abc.IdentityServer8.JwtIntrospection.UnitTests.csproj", "{DC4F9AD3-B5DC-4DE7-AC7B-39C30507EE0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{CA0237B7-9468-4BF0-80CE-81AC8DEE8BC9}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
